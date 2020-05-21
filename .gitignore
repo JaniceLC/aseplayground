@@ -1,0 +1,40 @@
+*.pyc
+*.zip
+*.xyz
+*.tar
+*.png
+doc/build/
+/dist
+MANIFEST
+.DS_Store
+*/.DS_Store
+*.traj
+*.csv
+/build
+/ase.egg-info
+/ase/db/static/jsmol
+doc/ase/dft/bztable.rst
+doc/tutorials/deltacodesdft/fit.json
+doc/ase/io/formatoptions.rst
+*.traj
+*.log
+*.xyz
+# Editor backup files
+*~
+*.db
+.ipynb_checkpoints/*
+# Ignore PyCharm settings
+.idea/
+
+# Vim swap files:
+.*.sw?
+
+# Translation template
+ase/gui/po/ag.pot
+
+# Pytest and code coverage:
+.cache
+.coverage
+coverage-html
+
+.mypy_cache
