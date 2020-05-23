@@ -21,8 +21,8 @@ from ase.calculators.qmmm import (SimpleQMMM, EIQMMM, LJInteractions,
 from matplotlib import pyplot as plt
 from tools.tip4p_cluster import tip4pcluster, tip4pcluster2
 from tools.tip4p_cluster import add_tip4p_const
-
-w5=tip4pcluster2(10, 5).water()
+np.random.seed(85)
+w5=tip4pcluster2(10, 3).water()
 
 original_positions = 1. * w5.get_positions()
 print(original_positions)
@@ -31,12 +31,12 @@ hop = MinimaHopping(w5,
                     Ediff0=0.5,
                     #T0=400., 
                    mdmin = 5, 
-                    minima_traj = 'w10/lmw10.traj', 
-                    logfile='w10/hop.log'
+                    minima_traj = 'w10/lmw10_compact.traj', 
+                    logfile='w10/hop_compact.log'
                    )
 hop(totalsteps=200)
 
 from ase.optimize.minimahopping import MHPlot
 
-mhplot = MHPlot(logname='w10/hop.log')
-mhplot.save_figure('md_w10_200step.png')
+mhplot = MHPlot(logname='w10/hop_compact.log')
+mhplot.save_figure('md_w10_500step_compact.png')
