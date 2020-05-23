@@ -113,7 +113,7 @@ def add_tip4p_const(water):
     return water 
 
 
-def prepare_graph(transition_states, lmdf, trandir, log='@-4:'):
+def prepare_graph(transition_states, lmdf, trandir, log='@-7:'):
     Ed=[]
     for ts in transition_states:
         outputs = read(trandir + ts + log)
@@ -128,8 +128,8 @@ def prepare_graph(transition_states, lmdf, trandir, log='@-4:'):
     min2=[]
     revers=[]
     for line in mins:
-        min1.append("new_"+line[0])
-        min2.append("new_"+line[1])
+        min1.append(line[0])
+        min2.append(line[1])
         revers.append(line[1]+"_"+line[0])
     db = pd.DataFrame(columns=["m1", "m2", "Ed", "images"])
 

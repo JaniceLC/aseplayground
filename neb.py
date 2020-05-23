@@ -126,4 +126,4 @@ for line in npdf:
         print(line[0], line[1], "fail")
         continue
 transition=pd.DataFrame(npdf, columns=['m1', 'm2', 'Ed', 'images'])
-transition.to_csv(ts + '/transitions.csv', index=False)
+transition.to_csv(ts+'.csv', index=False)
