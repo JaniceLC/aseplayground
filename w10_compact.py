@@ -1,9 +1,7 @@
 
 import numpy as np
 import ase.units as units
-
-
-
+from ase.optimize import BFGS, GPMin
 from ase import Atoms, io
 from ase.constraints import FixInternals
 
@@ -21,7 +19,7 @@ from ase.calculators.qmmm import (SimpleQMMM, EIQMMM, LJInteractions,
 from matplotlib import pyplot as plt
 from tools.tip4p_cluster import tip4pcluster, tip4pcluster2
 from tools.tip4p_cluster import add_tip4p_const
-np.random.seed(85)
+np.random.seed(86)
 w5=tip4pcluster2(10, 3).water()
 
 original_positions = 1. * w5.get_positions()
@@ -31,10 +29,11 @@ hop = MinimaHopping(w5,
                     Ediff0=0.5,
                     #T0=400., 
                    mdmin = 5, 
+                   optimizer=GPMin,
                     minima_traj = 'w10/lmw10_compact.traj', 
                     logfile='w10/hop_compact.log'
                    )
-hop(totalsteps=200)
+hop(totalsteps=500)
 
 from ase.optimize.minimahopping import MHPlot
 
