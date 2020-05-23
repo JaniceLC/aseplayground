@@ -27,7 +27,7 @@ parser.add_argument('--figname', type=str, default="TIP4PW10_DIS", help='figure 
 args = parser.parse_args()
 
 # load minima 
-traj = args.lm 
+ftraj = args.lm 
 empty = os.path.getsize(ftraj) == 0
 if not empty:
     traj = io.Trajectory(ftraj, 'r')
