@@ -3,6 +3,7 @@
 *.xyz
 *.tar
 *.png
+*.cmd
 doc/build/
 /dist
 MANIFEST
