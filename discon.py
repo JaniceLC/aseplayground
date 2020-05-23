@@ -38,7 +38,8 @@ else:
 nminima = len(minima)
 print('# minima: ', nminima)
 minima=minima[-args.nmin:]
-print('# minima used: ', len(minima))
+nminima = len(minima)
+print('# minima used: ', nminima)
 LM = {}
 for i in range(nminima):
     LM[str(i)] = add_tip4p_const(minima[i])
