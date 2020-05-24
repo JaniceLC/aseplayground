@@ -115,7 +115,7 @@ def saddlepoint(min1, min2, name):
         except:
             return
     optimize(neb, name)
-ts = args.ts
+ts = args.tr
 os.mkdir(ts) 
 records=0
 for line in npdf:
