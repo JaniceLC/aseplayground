@@ -247,7 +247,7 @@ def ints2string(x, threshold=None):
 
 
 class FixBondLengths(FixConstraint):
-    maxiter = 500
+    maxiter = 2000
 
     def __init__(self, pairs, tolerance=1e-13,
                  bondlengths=None, iterations=None):

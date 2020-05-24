@@ -19,7 +19,7 @@ from ase.calculators.qmmm import (SimpleQMMM, EIQMMM, LJInteractions,
 from matplotlib import pyplot as plt
 from tools.tip4p_cluster import tip4pcluster, tip4pcluster2
 from tools.tip4p_cluster import add_tip4p_const
-np.random.seed(86)
+np.random.seed(2015)
 w5=tip4pcluster2(10, 3).water()
 
 original_positions = 1. * w5.get_positions()
