@@ -87,12 +87,14 @@ def optimize(neb="", name=''):
     optimizer.run(fmax=10000)
     optimizer.run(fmax=5000)
     optimizer.run(fmax=1000)
-    optimizer.run(fmax=5000)
+    optimizer.run(fmax=500)
     optimizer.run(fmax=100)
     optimizer.run(fmax=50)
     optimizer.run(fmax=10)
     optimizer.run(fmax=0.5)
     optimizer.run(fmax=0.1)
+    optimizer.run(fmax=0.09)
+    optimizer.run(fmax=0.07)
     optimizer.run(fmax=0.05)
 
 import matplotlib.pyplot as plt

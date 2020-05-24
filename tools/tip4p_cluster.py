@@ -160,7 +160,7 @@ def prepare_graph(transition_states, lmdf, trandir, log='@-7:'):
     new = new[new["ET"] <= 0]
     new = new[new["E1"] <= new["ET"]]
     new = new[new["E2"] <= new["ET"]]
-    dbnp = new.as_matrix()
+    dbnp = new.values
 
 
     g = nx.Graph()
