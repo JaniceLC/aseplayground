@@ -29,9 +29,8 @@ hop = MinimaHopping(w5,
                     Ediff0=0.5,
                     #T0=400., 
                    mdmin = 5, 
-                   optimizer=GPMin,
-                    minima_traj = 'w10/lmw10_compact.traj', 
-                    logfile='w10/hop_compact.log'
+                   minima_traj = 'w10/lmw10_compact.traj', 
+                   logfile='w10/hop_compact.log'
                    )
 hop(totalsteps=500)
 
