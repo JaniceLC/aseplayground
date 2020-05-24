@@ -1,14 +1,32 @@
-"""H2S potential."""
+"""
+H2S potential.
+H2S
+ S                  0.00000000    0.00000000    0.10357400
+ H                  0.00000000    0.97644400   -0.82858900
+ H                  0.00000000   -0.97644400   -0.82858900
+OPLS q  epsilon (kJ/mol) sigma (AA)
+-0.4700     1.0460      3.7000 # OPLS24
++0.2350     0.0000      0.0000 # OPLS28
++0.2350     0.0000      0.0000 # OPLS28
+
+1 kCal = 4.184 kJ 
+1.0460 kJ/mol = 1.0460 / 4.184 kcal
+"""
+
 
 import numpy as np
-
+import math 
 import ase.units as units
 from ase.calculators.calculator import Calculator, all_changes
+S = [0.00000000  ,  0.00000000  ,  0.10357400]
+H1 = [0.00000000 ,   0.97644400 ,  -0.82858900]
+H2 =  [0.00000000,  -0.97644400 ,  -0.82858900]
 
-qH = 0.417
+rSH = math.sqrt((S[0]-H1[0])**2+ (S[1]-H1[1])**2 + (S[2]-H1[2])**2)
+
+qH = 0.2350
 sigma0 = 3.15061
-epsilon0 = 0.1521 * units.kcal / units.mol
-rOH = 0.9572
+epsilon0 =  1.0460 / 4.184 * units.kcal / units.mol
 angleHSH = 104.52
 thetaHSH = 104.52 / 180 * np.pi  # we keep this for backwards compatibility
 

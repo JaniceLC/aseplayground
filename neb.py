@@ -55,7 +55,7 @@ transition['m2'] = dcomb[:, 1]
 #transition['m2']= transition['m2'].apply(lambda x: int(x))
 transition = transition[transition['m1']!=transition['m2']]
 print(transition.head())
-npdf=transition.as_matrix()
+npdf=transition.values
 
 
 
