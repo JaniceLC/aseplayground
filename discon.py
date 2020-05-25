@@ -1,7 +1,7 @@
 import os 
 import argparse
 from ase.io.trajectory import Trajectory
-
+import math 
 
 import numpy as np
 import pandas as pd
@@ -23,6 +23,7 @@ parser.add_argument('--tr', type=str, default='w10_ts', help='the directory to s
 parser.add_argument('--nmin', type=int, default=50, help='number of minima used')
 parser.add_argument('--figtitle', type=str, default="TIP4P(H2O)10", help='TITLE OF DISCONNECTIVITY PLOTS e.g. TIP4P(H2O)10 ')
 parser.add_argument('--figname', type=str, default="TIP4PW10_DIS", help='figure name')
+parser.add_argument('--nimg', type=str, default="7", help='figure name')
 
 args = parser.parse_args()
 
@@ -37,7 +38,8 @@ else:
     minima = []
 nminima = len(minima)
 print('# minima: ', nminima)
-minima=minima[-args.nmin:]
+sep = math.floor(nminima/args.nmin)
+minima=minima[-1::-sep]
 nminima = len(minima)
 print('# minima used: ', nminima)
 LM = {}
@@ -59,7 +61,7 @@ trandir=args.tr + "/"
 transition_states=[name for name in os.listdir(trandir) if os.path.isfile(trandir+name) and os.path.getsize(trandir+name)>0]
 
 
-g, new= prepare_graph(transition_states, lmdf, trandir)
+g, new= prepare_graph(transition_states, lmdf, trandir, log='@-' + args.nimg +  ':')
 
 
 # plot 

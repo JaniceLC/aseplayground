@@ -1,4 +1,5 @@
 import os
+import math 
 import argparse
 from ase import Atoms, io
 from ase import units
@@ -30,7 +31,8 @@ else:
     minima = []
 nminima = len(minima)
 print('# minima: ', nminima)
-minima=minima[-args.nmin:]
+sep = math.floor(nminima/args.nmin)
+minima=minima[-1::-sep]
 nminima = len(minima)
 print('# minima used: ', nminima)
 LM = {}
