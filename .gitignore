@@ -4,6 +4,7 @@
 *.tar
 *.png
 *.cmd
+*.ipynb
 doc/build/
 /dist
 MANIFEST
