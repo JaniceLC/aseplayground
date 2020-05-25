@@ -24,8 +24,8 @@ H2 =  np.array([0.00000000,  -0.97644400 ,  -0.82858900])
 SH1 = H1-S
 SH2 = H2-S 
 cosine_angle = np.dot(SH1, SH2) / (np.linalg.norm(SH1) * np.linalg.norm(SH2))
-angleHSH = np.arccos(cosine_angle)
-
+#angleHSH = np.arccos(cosine_angle)
+angleHSH = 92.6581
 rSH = math.sqrt((S[0]-H1[0])**2+ (S[1]-H1[1])**2 + (S[2]-H1[2])**2)
 ## rSH = 1.34995 
 qH = 0.2350

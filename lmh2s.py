@@ -1,4 +1,4 @@
-
+import os
 import numpy as np
 import ase.units as units
 from ase.optimize import BFGS, GPMin
@@ -19,12 +19,16 @@ from ase.calculators.qmmm import (SimpleQMMM, EIQMMM, LJInteractions,
 from matplotlib import pyplot as plt
 from tools.h2s_cluster import h2scluster
 from tools.h2s_cluster import add_const
-np.random.seed(2015)
+np.random.seed(2029)
 w5=h2scluster(5, 3).water()
 
 original_positions = 1. * w5.get_positions()
 print(original_positions)
-
+try: 
+    os.mkdir('h2s5')
+except: 
+    os.rmdir('h2s5')
+    os.mkdir('h2s5')
 hop = MinimaHopping(w5,
                     Ediff0=0.5,
                     #T0=400., 
@@ -32,7 +36,7 @@ hop = MinimaHopping(w5,
                    minima_traj = 'h2s5/h2s5.traj', 
                    logfile='h2s5/h2s5.log'
                    )
-hop(totalsteps=200)
+hop(totalsteps=20)
 
 from ase.optimize.minimahopping import MHPlot
 

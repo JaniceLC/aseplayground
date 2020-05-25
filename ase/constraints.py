@@ -818,7 +818,7 @@ class FixInternals(FixConstraint):
         self.initialize(atoms)
         for constraint in self.constraints:
             constraint.set_h_vectors(atoms.positions)
-        for j in range(300):
+        for j in range(500):
             maxerr = 0.0
             for constraint in self.constraints:
                 constraint.adjust_positions(atoms.positions, new)
