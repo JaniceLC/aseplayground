@@ -15,7 +15,7 @@ from ase.io import read
 import networkx as nx
 import pandas as pd
 
-class tip4pcluster2:
+class h2scluster:
     def __init__(self, nmol=5, size=3):
         r = rSH
         a = angleHSH * pi / 180
@@ -61,7 +61,7 @@ class tip4pcluster2:
 
 
 
-def add_h2s_const(water):
+def add_const(water):
     nmol = int(water.positions.shape[0] / 3)
     a = angleHSH * pi / 180
     bonds = [(3 * i, 3 * i + 1) for i in range(nmol)]

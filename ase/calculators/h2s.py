@@ -18,17 +18,21 @@ import numpy as np
 import math 
 import ase.units as units
 from ase.calculators.calculator import Calculator, all_changes
-S = [0.00000000  ,  0.00000000  ,  0.10357400]
-H1 = [0.00000000 ,   0.97644400 ,  -0.82858900]
-H2 =  [0.00000000,  -0.97644400 ,  -0.82858900]
+S = np.array([0.00000000  ,  0.00000000  ,  0.10357400])
+H1 = np.array([0.00000000 ,   0.97644400 ,  -0.82858900])
+H2 =  np.array([0.00000000,  -0.97644400 ,  -0.82858900])
+SH1 = H1-S
+SH2 = H2-S 
+cosine_angle = np.dot(SH1, SH2) / (np.linalg.norm(SH1) * np.linalg.norm(SH2))
+angleHSH = np.arccos(cosine_angle)
 
 rSH = math.sqrt((S[0]-H1[0])**2+ (S[1]-H1[1])**2 + (S[2]-H1[2])**2)
-
+## rSH = 1.34995 
 qH = 0.2350
-sigma0 = 3.15061
+sigma0 =  3.7000 
 epsilon0 =  1.0460 / 4.184 * units.kcal / units.mol
-angleHSH = 104.52
-thetaHSH = 104.52 / 180 * np.pi  # we keep this for backwards compatibility
+
+thetaHSH = angleHSH / 180 * np.pi  # we keep this for backwards compatibility
 
 
 class H2S(Calculator):
@@ -37,7 +41,7 @@ class H2S(Calculator):
     pcpot = None
 
     def __init__(self, rc=5.0, width=1.0):
-        """TIP3P potential.
+        """H2S potential.
 
         rc: float
             Cutoff radius for Coulomb part.
@@ -62,11 +66,11 @@ class H2S(Calculator):
 
         assert (self.atoms.cell == np.diag(cell)).all(), 'not orthorhombic'
         assert ((cell >= 2 * self.rc) | ~pbc).all(), 'cutoff too large'  # ???
-        if Z[0] == 8:
+        if Z[0] == 16:
             o = 0
         else:
             o = 2
-        assert (Z[o::3] == 8).all()
+        assert (Z[o::3] == 16).all()
         assert (Z[(o + 1) % 3::3] == 1).all()
         assert (Z[(o + 2) % 3::3] == 1).all()
 
