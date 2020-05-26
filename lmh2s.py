@@ -19,13 +19,13 @@ from ase.calculators.qmmm import (SimpleQMMM, EIQMMM, LJInteractions,
 from matplotlib import pyplot as plt
 from tools.h2s_cluster import h2scluster
 from tools.h2s_cluster import add_const
-np.random.seed(2029)
+np.random.seed(2030)
 w5=h2scluster(5, 3).water()
 
 original_positions = 1. * w5.get_positions()
 print(original_positions)
 print('try local minimization')
-
+calc=H2S()
 from ase.optimize import BFGS, LBFGS
 opt = BFGS(w5, maxstep=0.02,
                trajectory='w5' + calc.name + '.traj', 
