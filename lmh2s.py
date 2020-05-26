@@ -35,7 +35,7 @@ opt.run(50000)
 opt.run(5000)
 opt.run(500)
 
-
+print('local min finished')
 
 try: 
     os.mkdir('h2s5')
