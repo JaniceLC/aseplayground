@@ -24,6 +24,19 @@ w5=h2scluster(5, 3).water()
 
 original_positions = 1. * w5.get_positions()
 print(original_positions)
+print('try local minimization')
+
+from ase.optimize import BFGS, LBFGS
+opt = BFGS(w5, maxstep=0.02,
+               trajectory='w5' + calc.name + '.traj', 
+           logfile='w5' + calc.name + 'd.log')
+
+opt.run(50000)
+opt.run(5000)
+opt.run(500)
+
+
+
 try: 
     os.mkdir('h2s5')
 except: 
