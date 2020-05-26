@@ -43,13 +43,13 @@ except:
     os.rmdir('h2s5')
     os.mkdir('h2s5')
 hop = MinimaHopping(w5,
-                    Ediff0=0.5,
+                    Ediff0=1,
                     #T0=400., 
                    mdmin = 5, 
                    minima_traj = 'h2s5/h2s5.traj', 
                    logfile='h2s5/h2s5.log'
                    )
-hop(totalsteps=20)
+hop(totalsteps=500)
 
 from ase.optimize.minimahopping import MHPlot
 
