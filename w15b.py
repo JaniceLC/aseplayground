@@ -28,11 +28,10 @@ nmol=10
 try: 
     os.mkdir('h2o15')
 except: 
-    os.rmdir('h2o15')
-    os.mkdir('h2o15')
+    print('h2o15 FOLDER EXISTS')
 
 BH = BasinHoppingm(w5,temperature=400 * kB,
-                                     dr=0.6,
+                                     dr=0.5,
                                      trajectory=ftraj, logfile='h2o15/w15basin.log')
 
 BH.run(800)
