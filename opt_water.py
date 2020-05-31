@@ -31,7 +31,6 @@ nmol=args.nmol
 np.random.seed(2015)
 w5=tip4pcluster2(nmol, 3.5).water()
 outputdir='h2o' + str(nmol)
-print( nmol,'H2O GLOBAL OPTIMIZATION')
 try: 
     os.mkdir(outputdir)
 except: 
