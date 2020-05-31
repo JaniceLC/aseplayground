@@ -6,8 +6,6 @@ from ase.constraints import FixInternals
 import os
 from ase.optimize.minimahopping import MinimaHopping
 from ase.optimize.basin_mul import BasinHoppingm
-
-
 from ase.calculators.lj import LennardJones
 #from ase.optimize.basin_mul import BasinHoppingm
 from ase.io import read
@@ -36,7 +34,7 @@ try:
     os.mkdir(outputdir)
 except: 
     print('h2o15 FOLDER EXISTS')
-ftraj = 'outputdir' + '/lowest_basinm' + str(nmol) +"_"  +str(dr)[2:] +'.traj'
+ftraj = outputdir + '/lowest_basinm' + str(nmol) +"_"  +str(dr)[2:] +'.traj'
 print(ftraj)
 print(outputdir + '/basin' + str(dr)[2:] + '.log')
 BH = BasinHoppingm(w5,temperature=400 * kB,

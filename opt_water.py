@@ -35,7 +35,7 @@ try:
     os.mkdir(outputdir)
 except: 
     print('h2o15 FOLDER EXISTS')
-ftraj = 'outputdir' + '/lowest_basinm' + str(nmol) +"_"  +str(dr)[2:] +'.traj'
+ftraj = outputdir + '/lowest_basinm' + str(nmol) +"_"  +str(dr)[2:] +'.traj'
 print(ftraj)
 
 BH = BasinHoppingm(w5,temperature=400 * kB,
