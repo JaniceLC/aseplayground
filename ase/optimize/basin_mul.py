@@ -85,8 +85,8 @@ class BasinHoppingm(Dynamics):
 
         for step in range(steps):
             En = None
-            i = 0
             while En is None:
+                i = 0
                 while i <= 11:
                     i+=1
                     try:
@@ -94,11 +94,9 @@ class BasinHoppingm(Dynamics):
                         break
                     except:
                         print("Oops!  Cannot set constrain {}".format(i))
-                if En == None: 
-                    break
+                
                     
-            if En==None:
-                continue
+            
             En = self.get_energy(rn)
             if En < self.Emin:
                 # new minimum found
