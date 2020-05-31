@@ -38,7 +38,7 @@ except:
     print('h2o15 FOLDER EXISTS')
 ftraj = 'outputdir' + '/lowest_basinm' + str(nmol) +"_"  +str(dr)[2:] +'.traj'
 print(ftraj)
-
+print(outputdir + '/basin' + str(dr)[2:] + '.log')
 BH = BasinHoppingm(w5,temperature=400 * kB,
                                      dr=dr,
                                      trajectory=ftraj, logfile= outputdir + '/basin' + str(dr)[2:] + '.log')
