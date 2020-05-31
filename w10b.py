@@ -31,7 +31,7 @@ for GlobalOptimizer in [BasinHoppingm(w5,
                                      dr=0.2,
                                      trajectory=ftraj, logfile='w10basin.log')]:
     if isinstance(GlobalOptimizer, BasinHoppingm):
-        GlobalOptimizer.run(30)
+        GlobalOptimizer.run(300)
         Emin, smin = GlobalOptimizer.get_minimum()
     else:
         GlobalOptimizer(totalsteps=10)
