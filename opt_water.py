@@ -29,7 +29,7 @@ args = parser.parse_args()
 dr = args.dr
 nmol=args.nmol
 np.random.seed(2015)
-w5=tip4pcluster2(nmol, 3.5).water()
+w5=tip4pcluster2(nmol, 3.8 ).water()
 outputdir='h2o' + str(nmol)
 try: 
     os.mkdir(outputdir)
