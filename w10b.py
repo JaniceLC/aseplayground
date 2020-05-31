@@ -26,16 +26,11 @@ w5=tip4pcluster2(10, 2.5).water()
 ftraj = 'lowest_basinm_w10.traj'
 nmol=10
 
-for GlobalOptimizer in [BasinHoppingm(w5,
+BH = BasinHoppingm(w5,
                                      temperature=400 * kB,
                                      dr=0.2,
-                                     trajectory=ftraj, logfile='w10basin.log')]:
-    if isinstance(GlobalOptimizer, BasinHoppingm):
-        GlobalOptimizer.run(300)
-        Emin, smin = GlobalOptimizer.get_minimum()
-    else:
-        GlobalOptimizer(totalsteps=10)
-        Emin = w5.get_potential_energy()
-        smin =w5
-    print("N=", nmol, 'minimal energy found', Emin)
- #         ' global minimum:', E_global[nmol])
+                                     trajectory=ftraj, logfile='w10basin.log')
+
+BH.run(800)
+Emin, smin = BH.get_minimum()
+print(Emin)
