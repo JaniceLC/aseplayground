@@ -23,12 +23,17 @@ from tools.tip4p_cluster import add_tip4p_const
 np.random.seed(2015)
 w5=tip4pcluster2(15, 3.5).water()
 
-ftraj = 'lowest_basinm_w15.traj'
+ftraj = 'h2o15/lowest_basinm_w15.traj'
 nmol=10
+try: 
+    os.mkdir('h2o15')
+except: 
+    os.rmdir('h2o15')
+    os.mkdir('h2o15')
 
 BH = BasinHoppingm(w5,temperature=400 * kB,
                                      dr=0.2,
-                                     trajectory=ftraj, logfile='w15basin.log')
+                                     trajectory=ftraj, logfile='h2o15/w15basin.log')
 
 BH.run(800)
 Emin, smin = BH.get_minimum()
