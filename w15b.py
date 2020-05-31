@@ -32,7 +32,7 @@ except:
     os.mkdir('h2o15')
 
 BH = BasinHoppingm(w5,temperature=400 * kB,
-                                     dr=0.2,
+                                     dr=0.6,
                                      trajectory=ftraj, logfile='h2o15/w15basin.log')
 
 BH.run(800)

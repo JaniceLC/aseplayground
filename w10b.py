@@ -27,7 +27,7 @@ ftraj = 'lowest_basinm_w10.traj'
 nmol=10
 
 BH = BasinHoppingm(w5,temperature=400 * kB,
-                                     dr=0.2,
+                                     dr=0.6,
                                      trajectory=ftraj, logfile='w10basin.log')
 
 BH.run(800)
