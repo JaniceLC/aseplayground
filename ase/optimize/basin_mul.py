@@ -85,14 +85,17 @@ class BasinHoppingm(Dynamics):
 
         for step in range(steps):
             En = None
+            i = 0
             while En is None:
-                i = 0
+                
                 while i <= 10:
                     try:
                         rn = self.move(ro)
                         break
                     except:
                         print("Oops!  Cannot set constrain {}".format(i))
+                        if i == 10: 
+                            continue
                     i+=1
                 En = self.get_energy(rn)
 
