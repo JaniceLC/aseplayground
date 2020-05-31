@@ -85,19 +85,19 @@ class BasinHoppingm(Dynamics):
 
         for step in range(steps):
             En = None
+            i = 0
             while En is None:
-                i = 0
-                while i <= 11:
-                    i+=1
-                    try:
-                        rn = self.move(ro)
-                        break
-                    except:
-                        print("Oops!  Cannot set constrain {}".format(i))
-                
-                    
-            
-            En = self.get_energy(rn)
+                rn = self.move(ro)
+                En = self.get_energy(rn)
+                # while i <= 11:
+                #     i+=1
+                #     try:
+                #         rn = self.move(ro)
+                #         break
+                #     except:
+                #         print("Oops!  Cannot set constrain {}".format(i))
+                # if En ==None:
+                #     continue            
             if En < self.Emin:
                 # new minimum found
                 self.Emin = En
@@ -125,20 +125,27 @@ class BasinHoppingm(Dynamics):
         atoms = self.atoms
         # displace coordinates
         #disp = np.random.uniform(-1., 1., (len(atoms), 3))
-        disp = np.random.uniform(-1, 1, (len(atoms)/3, 3))
+        disp = np.random.uniform(-1.0, 1.0, (int(len(atoms)/3), 3))
         final_dis=[]
-        for i in range(len(atoms)/3):
+        for i in range(int(len(atoms)/3)):
             d=disp[i].tolist()
             for i in range(3):
                 final_dis.append(d)
         disp=np.array(final_dis)
         rn = ro + self.dr * disp
-        atoms.set_positions(rn)
+        try:
+            atoms.set_positions(rn)
+        except:
+            print('p1')
         if self.cm is not None:
             cm = atoms.get_center_of_mass()
             atoms.translate(self.cm - cm)
+            print('ajusted')
         rn = atoms.get_positions()
-        world.broadcast(rn, 0)
+        try: 
+            world.broadcast(rn, 0)
+        except:
+            print('p2')
         atoms.set_positions(rn)
         return atoms.get_positions()
 

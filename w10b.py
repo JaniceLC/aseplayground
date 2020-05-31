@@ -26,10 +26,10 @@ w5=tip4pcluster2(10, 2.5).water()
 ftraj = 'lowest_basinm_w10.traj'
 nmol=10
 
-BH = BasinHoppingm(w5,
-                                     temperature=400 * kB,
+BH = BasinHoppingm(w5,temperature=400 * kB,
                                      dr=0.2,
-                                     trajectory=ftraj, logfile='w10basin.log')
+                                     trajectory=ftraj, logfile='w10basin.log',
+                                     adjust_cm=False)
 
 BH.run(800)
 Emin, smin = BH.get_minimum()
