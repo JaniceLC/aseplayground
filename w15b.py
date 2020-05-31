@@ -20,6 +20,13 @@ from ase.calculators.qmmm import (SimpleQMMM, EIQMMM, LJInteractions,
 from matplotlib import pyplot as plt
 from tools.tip4p_cluster import tip4pcluster, tip4pcluster2
 from tools.tip4p_cluster import add_tip4p_const
+import argparse
+parser = argparse.ArgumentParser(description='input optimization para')
+parser.add_argument('--dr', type=float, default='w10/lmw10.traj', help='the `traj` for Local minima')
+args = parser.parse_args()
+######## local minima #########
+dr = args.dr
+
 np.random.seed(2015)
 w5=tip4pcluster2(15, 3.5).water()
 nmol=10
@@ -30,7 +37,7 @@ except:
 ftraj = 'h2o15/lowest_basinm_w15.traj'
 
 BH = BasinHoppingm(w5,temperature=400 * kB,
-                                     dr=0.5,
+                                     dr=dr,
                                      trajectory=ftraj, logfile='h2o15/w15basin.log')
 
 BH.run(2000)
