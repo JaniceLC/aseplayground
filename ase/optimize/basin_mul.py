@@ -133,19 +133,13 @@ class BasinHoppingm(Dynamics):
                 final_dis.append(d)
         disp=np.array(final_dis)
         rn = ro + self.dr * disp
-        try:
-            atoms.set_positions(rn)
-        except:
-            print('p1')
+        atoms.set_positions(rn)
         if self.cm is not None:
             cm = atoms.get_center_of_mass()
             atoms.translate(self.cm - cm)
             print('ajusted')
         rn = atoms.get_positions()
-        try: 
-            world.broadcast(rn, 0)
-        except:
-            print('p2')
+        world.broadcast(rn, 0)
         atoms.set_positions(rn)
         return atoms.get_positions()
 

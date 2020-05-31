@@ -28,8 +28,7 @@ nmol=10
 
 BH = BasinHoppingm(w5,temperature=400 * kB,
                                      dr=0.2,
-                                     trajectory=ftraj, logfile='w10basin.log',
-                                     adjust_cm=False)
+                                     trajectory=ftraj, logfile='w10basin.log')
 
 BH.run(800)
 Emin, smin = BH.get_minimum()
