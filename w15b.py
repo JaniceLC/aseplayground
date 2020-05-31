@@ -3,7 +3,7 @@ import pytest
 import ase.units as units
 from ase import Atoms, io
 from ase.constraints import FixInternals
-
+import os
 from ase.optimize.minimahopping import MinimaHopping
 from ase.optimize.basin_mul import BasinHoppingm
 
@@ -22,18 +22,17 @@ from tools.tip4p_cluster import tip4pcluster, tip4pcluster2
 from tools.tip4p_cluster import add_tip4p_const
 np.random.seed(2015)
 w5=tip4pcluster2(15, 3.5).water()
-
-ftraj = 'h2o15/lowest_basinm_w15.traj'
 nmol=10
 try: 
     os.mkdir('h2o15')
 except: 
     print('h2o15 FOLDER EXISTS')
+ftraj = 'h2o15/lowest_basinm_w15.traj'
 
 BH = BasinHoppingm(w5,temperature=400 * kB,
                                      dr=0.5,
                                      trajectory=ftraj, logfile='h2o15/w15basin.log')
 
-BH.run(800)
+BH.run(2000)
 Emin, smin = BH.get_minimum()
 print(Emin)

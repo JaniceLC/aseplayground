@@ -21,7 +21,7 @@ from matplotlib import pyplot as plt
 from tools.tip4p_cluster import tip4pcluster, tip4pcluster2
 from tools.tip4p_cluster import add_tip4p_const
 import os
-np.random.seed(2015)
+np.random.seed(2019)
 w5=tip4pcluster2(10, 2.5).water()
 try: 
     os.mkdir('h2o10')
@@ -35,6 +35,6 @@ BH = BasinHoppingm(w5,temperature=400 * kB,
                                      dr=0.1,
                                      trajectory=ftraj, logfile='h2o10/w10basin_small.log')
 
-BH.run(800)
+BH.run(2000)
 Emin, smin = BH.get_minimum()
 print(Emin)
