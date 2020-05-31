@@ -22,7 +22,7 @@ from tools.tip4p_cluster import tip4pcluster, tip4pcluster2
 from tools.tip4p_cluster import add_tip4p_const
 import argparse
 parser = argparse.ArgumentParser(description='input optimization para')
-parser.add_argument('--dr', type=float, default='w10/lmw10.traj', help='the `traj` for Local minima')
+parser.add_argument('--dr', type=float, default=0.2, help='the `traj` for Local minima')
 args = parser.parse_args()
 ######## local minima #########
 dr = args.dr
