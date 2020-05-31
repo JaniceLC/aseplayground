@@ -124,7 +124,14 @@ class BasinHoppingm(Dynamics):
         """Move atoms by a random step."""
         atoms = self.atoms
         # displace coordinates
-        disp = np.random.uniform(-1., 1., (len(atoms), 3))
+        #disp = np.random.uniform(-1., 1., (len(atoms), 3))
+        disp = np.random.uniform(-1, 1, (len(atoms)/3, 3))
+        final_dis=[]
+        for i in range(len(atoms)/3):
+            d=disp[i].tolist()
+            for i in range(3):
+                final_dis.append(d)
+        disp=np.array(final_dis)
         rn = ro + self.dr * disp
         atoms.set_positions(rn)
         if self.cm is not None:
