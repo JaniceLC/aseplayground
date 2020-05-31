@@ -34,11 +34,11 @@ try:
     os.mkdir('h2o15')
 except: 
     print('h2o15 FOLDER EXISTS')
-ftraj = 'h2o15/lowest_basinm_w15.traj'
+ftraj = 'h2o15/lowest_basinm_w15' +str(dr)[2:] +'.traj'
 
 BH = BasinHoppingm(w5,temperature=400 * kB,
                                      dr=dr,
-                                     trajectory=ftraj, logfile='h2o15/w15basin.log')
+                                     trajectory=ftraj, logfile='h2o15/w15basin' + str(dr)[2:] + '.log')
 
 BH.run(2000)
 Emin, smin = BH.get_minimum()
