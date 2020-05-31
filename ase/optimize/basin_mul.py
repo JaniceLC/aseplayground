@@ -88,17 +88,20 @@ class BasinHoppingm(Dynamics):
             i = 0
             while En is None:
                 
-                while i <= 10:
+                while i <= 11:
+                    i+=1
                     try:
                         rn = self.move(ro)
                         break
                     except:
                         print("Oops!  Cannot set constrain {}".format(i))
                         if i == 10: 
-                            continue
-                    i+=1
-                En = self.get_energy(rn)
-
+                            break
+                    
+            
+            if En==None:
+                break
+            En = self.get_energy(rn)
             if En < self.Emin:
                 # new minimum found
                 self.Emin = En
