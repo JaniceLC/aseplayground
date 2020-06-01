@@ -5,6 +5,7 @@
 *.png
 *.cmd
 *.ipynb
+.vscode/
 doc/build/
 /dist
 MANIFEST
