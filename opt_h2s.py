@@ -24,13 +24,14 @@ import argparse
 parser = argparse.ArgumentParser(description='input optimization para')
 parser.add_argument('--dr', type=float, default=0.2, help='the `traj` for Local minima')
 parser.add_argument('--nmol', type=int, default=15, help='the `traj` for Local minima')
+parser.add_argument('--nstep', type=int, default=30, help='the `traj` for Local minima')
 args = parser.parse_args()
 ######## local minima #########
 dr = args.dr
 nmol=args.nmol
 
-np.random.seed(2030)
-w5=h2scluster(nmol, 3.0).water()
+#np.random.seed(2030)
+
 outputdir='h2s_' + str(nmol)
 try: 
     os.mkdir(outputdir)
@@ -39,10 +40,14 @@ except:
 ftraj = outputdir + '/lowest_basinm' + str(nmol) +"_"  +str(dr)[2:] +'.traj'
 print(ftraj)
 
-BH = BasinHoppingm(w5,temperature=400 * kB,
-                                     dr=dr,
-                                     trajectory=ftraj, logfile= outputdir + '/basin' + str(dr)[2:] + '.log')
+for i in range(args.nstep):
+    ftraj = outputdir + '/lowest_basinm' + str(nmol) +"_"  +str(dr)[2:] + str(i) +'.traj'
+    w5=h2scluster(nmol, 3.0).water()
+    BH = BasinHoppingm(w5,temperature=400 * kB,
+                                        dr=dr,
+                                        trajectory=ftraj, logfile= outputdir + '/basin' + str(dr)[2:] + int(i)+ '.log')
+    
 
-BH.run(2000)
-Emin, smin = BH.get_minimum()
-print(Emin)
+    BH.run(200)
+    Emin, smin = BH.get_minimum()
+    print(Emin)
