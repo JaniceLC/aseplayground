@@ -10,8 +10,8 @@ from ase.optimize import MDMin, BFGS,LBFGS,FIRE
 from ase.optimize.basin_mul import BasinHoppingm
 import pandas as pd
 import numpy as np
-from tools.tip4p_cluster import tip4pcluster2
-from tools.tip4p_cluster import add_tip4p_const
+from tools.h2s_cluster import h2scluster
+from tools.h2s_cluster import add_const
 from ase.io.trajectory import Trajectory
 
 parser = argparse.ArgumentParser(description='Process input traj files')
@@ -21,13 +21,25 @@ parser.add_argument('--nmin', type=int, default=50, help='number of minima used'
 args = parser.parse_args()
 ######## local minima #########
 ftraj = args.lm 
-empty = os.path.getsize(ftraj) == 0
-if not empty:
-    traj = io.Trajectory(ftraj, 'r')
-    minima = [atoms for atoms in traj]
-else:
-    print('no minima founded')
-    minima = []
+
+from os import listdir
+def list_of_files(dir_name, suffix):
+    return [f for f in listdir(dir_name) if f.endswith('.' + suffix)]
+# load minima 
+#ftraj = args.lm 
+ftraj = list_of_files(args.lm, 'traj')
+minima = []
+for i in range(len(ftraj)):
+    empty = os.path.getsize( args.lm + "/"+ftraj[i]) == 0
+    if not empty:
+        traj = io.Trajectory(args.lm + "/"+ ftraj[i], 'r')
+        mini = [atoms for atoms in traj]
+    else:
+        print('no minima founded in ', ftraj[i])
+        minima = []
+    minima=minima + mini
+
+
 nminima = len(minima)
 print('# minima: ', nminima)
 minima=minima[-args.nmin:]
@@ -35,7 +47,7 @@ nminima = len(minima)
 print('# minima used: ', nminima)
 LM = {}
 for i in range(nminima):
-    LM[str(i)] = add_tip4p_const(minima[i])
+    LM[str(i)] = add_const(minima[i])
 
 
 import itertools
@@ -106,7 +118,7 @@ def saddlepoint(min1, min2, name):
     images += [LM[min2]]
     for image in images:
         image.set_calculator(TIP4P())
-        add_tip4p_const(image)
+        add_const(image)
     neb = NEB(images, climb=True, parallel=True) 
     try:
         neb.interpolate()

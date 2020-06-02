@@ -42,7 +42,6 @@ for i in range(len(ftraj)):
         print('no minima founded in ', ftraj[i])
         minima = []
     minima=minima + mini
-print(minima)
 
 nminima = len(minima)
 print('# minima: ', nminima)
