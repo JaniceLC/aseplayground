@@ -31,7 +31,7 @@ dr = args.dr
 nmol=args.nmol
 np.random.seed(2015)
 
-outputdir='h2o' + str(nmol)
+outputdir='h2o_' + str(nmol)
 try: 
     os.mkdir(outputdir)
 except: 
