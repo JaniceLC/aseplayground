@@ -40,20 +40,13 @@ for i in range(len(ftraj)):
         mini = [mini[-1:]]
     else:
         print('no minima founded in ', ftraj[i])
-        minima = []
+        mini = []
     minima=minima + mini
 
 nminima = len(minima)
 
 # load minima 
-ftraj = args.lm 
-empty = os.path.getsize(ftraj) == 0
-if not empty:
-    traj = io.Trajectory(ftraj, 'r')
-    minima = [atoms for atoms in traj]
-else:
-    print('no minima founded')
-    minima = []
+
 
 nminima = len(minima)
 print('# minima: ', nminima)
