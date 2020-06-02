@@ -33,12 +33,12 @@ def list_of_files(dir_name, suffix):
 #ftraj = args.lm 
 ftraj = list_of_files(args.lm, 'traj')
 minima = []
-#for i in range(len(ftraj)):
-for i in range(1):
+for i in range(len(ftraj)):
     empty = os.path.getsize( args.lm + "/"+ftraj[i]) == 0
     if not empty:
         traj = io.Trajectory(args.lm + "/"+ ftraj[i], 'r')
         mini = [atoms for atoms in traj]
+        mini = mini[-1]
     else:
         print('no minima founded in ', ftraj[i])
         minima = []
@@ -47,9 +47,7 @@ for i in range(1):
 nminima = len(minima)
 
 print('# minima: ', nminima)
-for i in range(nminima):
-    print(add_const(minima[i]).get_potential_energy())
-    
+
 sep = math.floor(nminima/args.nmin)
 minima=minima[-1::-sep]
 nminima = len(minima)
