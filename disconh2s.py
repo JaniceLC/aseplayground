@@ -7,8 +7,8 @@ import numpy as np
 import pandas as pd
 import networkx as nx
 
-from tools.tip4p_cluster import tip4pcluster2
-from tools.tip4p_cluster import add_tip4p_const
+from tools.h2s_cluster import h2scluster
+from tools.h2s_cluster import add_const
 from tools.tip4p_cluster import prepare_graph
 
 
@@ -24,17 +24,26 @@ parser.add_argument('--nmin', type=int, default=50, help='number of minima used'
 parser.add_argument('--figtitle', type=str, default="TIP4P(H2O)10", help='TITLE OF DISCONNECTIVITY PLOTS e.g. TIP4P(H2O)10 ')
 parser.add_argument('--figname', type=str, default="TIP4PW10_DIS", help='figure name')
 
-args = parser.parse_args()
 
+args = parser.parse_args()
+from os import listdir
+def list_of_files(dir_name,"txt"):
+    return [f for f in listdir(dir_name) if file.endswith('.' + "txt")]
 # load minima 
-ftraj = args.lm 
-empty = os.path.getsize(ftraj) == 0
-if not empty:
-    traj = io.Trajectory(ftraj, 'r')
-    minima = [atoms for atoms in traj]
-else:
-    print('no minima founded')
-    minima = []
+#ftraj = args.lm 
+ftraj = list_of_files(args.lm, 'traj')
+minima = []
+for i in range(len(ftraj)):
+    empty = os.path.getsize(ftraj[i]) == 0
+    if not empty:
+        traj = io.Trajectory(ftraj[i], 'r')
+        mini = [atoms for atoms in traj]
+    else:
+        print('no minima founded in ', ftraj[i])
+        minima = []
+    minima=minima + mini
+print(minima)
+
 nminima = len(minima)
 print('# minima: ', nminima)
 minima=minima[-args.nmin:]
@@ -42,12 +51,12 @@ nminima = len(minima)
 print('# minima used: ', nminima)
 LM = {}
 for i in range(nminima):
-    LM[str(i)] = add_tip4p_const(minima[i])
+    LM[str(i)] = add_const(minima[i])
 
 lmdf=pd.DataFrame(columns=['m1', 'E1'])
 E = []
 for lm in LM.values():
-    add_tip4p_const(lm)
+    add_const(lm)
     E.append(lm.get_potential_energy())
 lmdf['E1']=E
 lmdf['m1']=LM.keys()
