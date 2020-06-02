@@ -27,8 +27,8 @@ parser.add_argument('--figname', type=str, default="TIP4PW10_DIS", help='figure 
 
 args = parser.parse_args()
 from os import listdir
-def list_of_files(dir_name,"txt"):
-    return [f for f in listdir(dir_name) if file.endswith('.' + "txt")]
+def list_of_files(dir_name, suffix):
+    return [f for f in listdir(dir_name) if file.endswith('.' + suffix)]
 # load minima 
 #ftraj = args.lm 
 ftraj = list_of_files(args.lm, 'traj')
