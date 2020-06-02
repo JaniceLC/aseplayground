@@ -21,14 +21,25 @@ parser.add_argument('--tr', type=str, default='w10_ts', help='the directory to s
 parser.add_argument('--nmin', type=int, default=50, help='number of minima used')
 args = parser.parse_args()
 ######## local minima #########
-ftraj = args.lm 
-empty = os.path.getsize(ftraj) == 0
-if not empty:
-    traj = io.Trajectory(ftraj, 'r')
-    minima = [atoms for atoms in traj]
-else:
-    print('no minima founded')
-    minima = []
+from os import listdir
+def list_of_files(dir_name, suffix):
+    return [f for f in listdir(dir_name) if f.endswith('.' + suffix)]
+# load minima 
+#ftraj = args.lm 
+ftraj = list_of_files(args.lm, 'traj')
+minima = []
+for i in range(len(ftraj)):
+    empty = os.path.getsize( args.lm + "/"+ftraj[i]) == 0
+    if not empty:
+        traj = io.Trajectory(args.lm + "/"+ ftraj[i], 'r')
+        mini = [atoms for atoms in traj]
+        mini = [mini[-2:]]
+    else:
+        print('no minima founded in ', ftraj[i])
+        mini = []
+    minima=minima + mini
+
+
 nminima = len(minima)
 print('# minima: ', nminima)
 sep = math.floor(nminima/args.nmin)
