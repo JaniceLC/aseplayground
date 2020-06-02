@@ -46,9 +46,8 @@ for i in range(len(ftraj)):
 
 nminima = len(minima)
 print('# minima: ', nminima)
-for i in range(nminima):
-    LM[str(i)] = add_const(minima[i])
-    print(LM[str(i)].get_potential_energy())
+
+
 sep = math.floor(nminima/args.nmin)
 minima=minima[-1::-sep]
 nminima = len(minima)
