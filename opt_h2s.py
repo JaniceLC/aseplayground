@@ -45,7 +45,7 @@ for i in range(args.nstep):
     w5=h2scluster(nmol, 2.5).water()
     BH = BasinHoppingm(w5,temperature=400 * kB,
                                         dr=dr,
-                                        trajectory=ftraj, logfile= outputdir + '/basin' + str(dr)[2:] + int(i)+ '.log')
+                                        trajectory=ftraj, logfile= outputdir + '/basin' + str(dr)[2:] + str(i)+ '.log')
     
 
     BH.run(200)
