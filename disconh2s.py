@@ -44,6 +44,7 @@ for i in range(len(ftraj)):
     minima=minima + mini
 
 nminima = len(minima)
+
 print('# minima: ', nminima)
 minima=minima[-args.nmin:]
 nminima = len(minima)
