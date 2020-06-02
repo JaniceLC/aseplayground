@@ -37,7 +37,7 @@ for i in range(len(ftraj)):
     if not empty:
         traj = io.Trajectory(args.lm + "/"+ ftraj[i], 'r')
         mini = [atoms for atoms in traj]
-        mini = [mini[-1]]
+        mini = [mini[-2:]]
     else:
         print('no minima founded in ', ftraj[i])
         minima = []
