@@ -26,6 +26,24 @@ parser.add_argument('--figname', type=str, default="TIP4PW10_DIS", help='figure 
 parser.add_argument('--nimg', type=str, default="7", help='figure name')
 
 args = parser.parse_args()
+from os import listdir
+def list_of_files(dir_name, suffix):
+    return [f for f in listdir(dir_name) if f.endswith('.' + suffix)]
+args = parser.parse_args()
+ftraj = list_of_files(args.lm, 'traj')
+minima = []
+for i in range(len(ftraj)):
+    empty = os.path.getsize( args.lm + "/"+ftraj[i]) == 0
+    if not empty:
+        traj = io.Trajectory(args.lm + "/"+ ftraj[i], 'r')
+        mini = [atoms for atoms in traj]
+        mini = [mini[-1:]]
+    else:
+        print('no minima founded in ', ftraj[i])
+        minima = []
+    minima=minima + mini
+
+nminima = len(minima)
 
 # load minima 
 ftraj = args.lm 
@@ -36,6 +54,7 @@ if not empty:
 else:
     print('no minima founded')
     minima = []
+
 nminima = len(minima)
 print('# minima: ', nminima)
 sep = math.floor(nminima/args.nmin)
