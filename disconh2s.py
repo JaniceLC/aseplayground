@@ -1,7 +1,7 @@
 import os 
 import argparse
 from ase.io.trajectory import Trajectory
-
+import math
 
 import numpy as np
 import pandas as pd
@@ -33,7 +33,8 @@ def list_of_files(dir_name, suffix):
 #ftraj = args.lm 
 ftraj = list_of_files(args.lm, 'traj')
 minima = []
-for i in range(len(ftraj)):
+#for i in range(len(ftraj)):
+for i in range(1):
     empty = os.path.getsize( args.lm + "/"+ftraj[i]) == 0
     if not empty:
         traj = io.Trajectory(args.lm + "/"+ ftraj[i], 'r')
@@ -46,7 +47,11 @@ for i in range(len(ftraj)):
 nminima = len(minima)
 
 print('# minima: ', nminima)
-minima=minima[-args.nmin:]
+for i in range(nminima):
+    print(add_const(minima[i]).get_potential_energy())
+    
+sep = math.floor(nminima/args.nmin)
+minima=minima[-1::-sep]
 nminima = len(minima)
 print('# minima used: ', nminima)
 LM = {}

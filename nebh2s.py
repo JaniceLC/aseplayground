@@ -1,5 +1,7 @@
 import os
 import argparse
+import math 
+
 from ase import Atoms, io
 from ase import units
 from math import cos, sin, pi
@@ -29,8 +31,8 @@ def list_of_files(dir_name, suffix):
 #ftraj = args.lm 
 ftraj = list_of_files(args.lm, 'traj')
 minima = []
-#for i in range(len(ftraj)):
-for i in range(1):
+for i in range(len(ftraj)):
+#for i in range(1):
     empty = os.path.getsize( args.lm + "/"+ftraj[i]) == 0
     if not empty:
         traj = io.Trajectory(args.lm + "/"+ ftraj[i], 'r')
@@ -46,7 +48,7 @@ print('# minima: ', nminima)
 for i in range(nminima):
     LM[str(i)] = add_const(minima[i])
     print(LM[str(i)].get_potential_energy())
-
+sep = math.floor(nminima/args.nmin)
 minima=minima[-1::-sep]
 nminima = len(minima)
 print('# minima used: ', nminima)
