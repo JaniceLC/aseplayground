@@ -41,7 +41,7 @@ for i in range(args.nstep):
     w5=tip4pcluster2(nmol, 5).water()
     ftraj = outputdir + '/lowest_basinm' + str(nmol) +"_"  +str(dr)[2:]  + str(i) +'.traj'
 
-    BH = BasinHoppingm(w5,temperature=400 * kB,
+    BH = BasinHoppingm(w5,temperature=300 * kB,
                                      dr=dr,
                                      trajectory=ftraj, logfile= outputdir + '/basin' + str(dr)[2:] + str(i) + '.log')
 
