@@ -43,6 +43,7 @@ print('# minima used: ', nminima)
 
 LM = {}
 for mini in minima:
+    print(mini)
     try:
       LM[mini[:-4]]= io.read(mydir+mini)
     except:
