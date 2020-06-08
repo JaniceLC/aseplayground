@@ -36,12 +36,14 @@ def list_of_files(dir_name, suffix):
 mydir=args.lm + '/'
 minima = list_of_files(args.lm, 'xyz')
 nminima = len(minima)
+minima.sort(key=lambda f: int(filter(str.isdigit, f)))
 sep = math.floor(nminima/50)
 minima=minima[0::sep]
 nminima = len(minima)
 print('# minima used: ', nminima)
 
 LM = {}
+
 for mini in minima:
     print(mini)
     try:
