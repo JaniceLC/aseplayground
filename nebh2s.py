@@ -32,7 +32,8 @@ def list_of_files(dir_name, suffix):
 mydir=args.lm + '/'
 minima = list_of_files(args.lm, 'xyz')
 nminima = len(minima)
-minima.sort(key=lambda f: int(filter(str.isdigit, f)))
+#minima.sort(key=lambda f: int(filter(str.isdigit, f)))
+minima = sorted(minima,key=lambda x: int(os.path.splitext(x)[0]))
 
 sep = math.floor(nminima/50)
 minima=minima[0::sep]
