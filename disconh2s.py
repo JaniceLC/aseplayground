@@ -10,6 +10,7 @@ import networkx as nx
 from tools.h2s_cluster import h2scluster
 from tools.h2s_cluster import add_const
 from tools.tip4p_cluster import prepare_graph
+from ase.optimize import BFGS,LBFGS
 
 
 from ase import Atoms, io
@@ -31,30 +32,28 @@ def list_of_files(dir_name, suffix):
     return [f for f in listdir(dir_name) if f.endswith('.' + suffix)]
 # load minima 
 #ftraj = args.lm 
-ftraj = list_of_files(args.lm, 'traj')
-minima = []
-for i in range(len(ftraj)):
-    empty = os.path.getsize( args.lm + "/"+ftraj[i]) == 0
-    if not empty:
-        traj = io.Trajectory(args.lm + "/"+ ftraj[i], 'r')
-        mini = [atoms for atoms in traj]
-        mini = [mini[-2:]]
-    else:
-        print('no minima founded in ', ftraj[i])
-        mini = []
-    minima=minima + mini
 
+mydir=args.lm + '/'
+minima = list_of_files(args.lm, 'xyz')
 nminima = len(minima)
-
-print('# minima: ', nminima)
-
-sep = math.floor(nminima/args.nmin)
-minima=minima[-1::-sep]
+sep = math.floor(nminima/50)
+minima=minima[0::sep]
 nminima = len(minima)
 print('# minima used: ', nminima)
+
 LM = {}
-for i in range(nminima):
-    LM[str(i)] = add_const(minima[i])
+for mini in minima:
+    try:
+      LM[mini[:-4]]= io.read(mydir+mini)
+    except:
+      continue
+for lm in LM.values():
+    add_const(lm)
+
+for lm in LM.values():
+    dyn=LBFGS(lm)
+    dyn.run(fmax=0.05)
+
 
 lmdf=pd.DataFrame(columns=['m1', 'E1'])
 E = []
@@ -69,7 +68,7 @@ trandir=args.tr + "/"
 
 # load transition states
 transition_states=[name for name in os.listdir(trandir) if os.path.isfile(trandir+name) and os.path.getsize(trandir+name)>0]
-
+print(len(transition_states), 'transition paths finded')
 
 g, new= prepare_graph(transition_states, lmdf, trandir)
 

@@ -84,7 +84,7 @@ def prepare_graph(transition_states, lmdf, trandir, log='@-7:'):
     for ts in transition_states:
         outputs = read(trandir + ts + log)
         for output in outputs:
-            add_h2s_const(output)
+            add_const(output)
         nebtools = NEBTools(outputs)
         Ef, dE = nebtools.get_barrier()
         Ed.append([ts[:-5], Ef, Ed])

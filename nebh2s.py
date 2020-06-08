@@ -17,7 +17,7 @@ from tools.h2s_cluster import add_const
 from ase.io.trajectory import Trajectory
 
 parser = argparse.ArgumentParser(description='Process input traj files')
-parser.add_argument('--lm', type=str, default='w10/lmw10.traj', help='the `traj` for Local minima')
+parser.add_argument('--lm', type=str, default='h2s_10', help='the `traj` for Local minima')
 parser.add_argument('--tr', type=str, default='w10_ts', help='the directory to store ')
 parser.add_argument('--nmin', type=int, default=50, help='number of minima used')
 args = parser.parse_args()
@@ -29,33 +29,22 @@ def list_of_files(dir_name, suffix):
     return [f for f in listdir(dir_name) if f.endswith('.' + suffix)]
 # load minima 
 #ftraj = args.lm 
-ftraj = list_of_files(args.lm, 'traj')
-minima = []
-for i in range(len(ftraj)):
-#for i in range(1):
-    empty = os.path.getsize( args.lm + "/"+ftraj[i]) == 0
-    if not empty:
-        traj = io.Trajectory(args.lm + "/"+ ftraj[i], 'r')
-        mini = [atoms for atoms in traj]
-        mini = [mini[-2:]]
-    else:
-        print('no minima founded in ', ftraj[i])
-        minima = []
-    minima=minima + mini
-
-
+mydir=args.lm + '/'
+minima = list_of_files(args.lm, 'xyz')
 nminima = len(minima)
-print('# minima: ', nminima)
-
-
-sep = math.floor(nminima/args.nmin)
-minima=minima[-1::-sep]
+sep = math.floor(nminima/50)
+minima=minima[0::sep]
 nminima = len(minima)
 print('# minima used: ', nminima)
-LM = {}
-for i in range(nminima):
-    LM[str(i)] = add_const(minima[i])
 
+LM = {}
+for mini in minima:
+    try:
+      LM[mini[:-4]]= io.read(mydir+mini)
+    except:
+      continue
+for lm in LM.values():
+    add_const(lm)
 
 import itertools
 transition=pd.DataFrame(columns=['m1', 'm2', 'Ed', 'images'])
@@ -134,6 +123,7 @@ def saddlepoint(min1, min2, name):
             print("try idpp interpolate")
             neb.interpolate(method="idpp")
         except:
+            print('interploation cannot converge')
             return
     optimize(neb, name)
 ts = args.tr
@@ -145,7 +135,7 @@ for line in npdf:
         line[3]=line[0]+'_'+line[1]
         saddlepoint(line[0], line[1], ts+ "/"+line[3])
     except:
-        print(line[0], line[1], "fail")
+        print(line[0], line[1], "time limit")
         continue
 transition=pd.DataFrame(npdf, columns=['m1', 'm2', 'Ed', 'images'])
 transition.to_csv(ts+'.csv', index=False)
