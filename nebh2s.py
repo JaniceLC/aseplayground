@@ -46,6 +46,9 @@ for mini in minima:
 for lm in LM.values():
     add_const(lm)
 
+for lm in LM.values():
+    dyn=LBFGS(lm)
+    dyn.run(fmax=0.05)
 import itertools
 transition=pd.DataFrame(columns=['m1', 'm2', 'Ed', 'images'])
 lmlist=LM.keys()

@@ -9,7 +9,7 @@ import networkx as nx
 
 from tools.h2s_cluster import h2scluster
 from tools.h2s_cluster import add_const
-from tools.tip4p_cluster import prepare_graph
+from tools.h2s_cluster import prepare_graph
 from ase.optimize import BFGS,LBFGS
 
 
