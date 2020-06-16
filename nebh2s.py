@@ -35,7 +35,7 @@ nminima = len(minima)
 #minima.sort(key=lambda f: int(filter(str.isdigit, f)))
 minima = sorted(minima,key=lambda x: int(os.path.splitext(x)[0]))
 
-sep = math.floor(nminima/50)
+sep = math.floor(nminima/args.nmin)
 minima=minima[0::sep]
 nminima = len(minima)
 print('# minima used: ', nminima)

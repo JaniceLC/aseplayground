@@ -38,7 +38,7 @@ minima = list_of_files(args.lm, 'xyz')
 nminima = len(minima)
 minima = sorted(minima,key=lambda x: int(os.path.splitext(x)[0]))
 #minima.sort(key=lambda f: int(filter(str.isdigit, f)))
-sep = math.floor(nminima/50)
+sep = math.floor(nminima/args.nmin)
 minima=minima[0::sep]
 nminima = len(minima)
 print('# minima used: ', nminima)
